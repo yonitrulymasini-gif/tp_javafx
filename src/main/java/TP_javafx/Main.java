@@ -19,7 +19,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         System.out.println(">>> RUNNING: tp_javafx.Main");
-        stage.setTitle("JavaFX - MenuBar (TP10)");
+        stage.setTitle("JavaFX - MenuBar (TP_javafx)");
 
         stage.setScene(createLoginScene(stage));
         stage.show();
@@ -163,8 +163,6 @@ public class Main extends Application {
         root.setPadding(new Insets(12));
 
         Scene scene = new Scene(root, 780, 580);
-        );
-
         return scene;
     }
 
