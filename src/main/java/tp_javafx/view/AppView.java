@@ -9,6 +9,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import tp_javafx.model.UserService;
 import tp_javafx.model.User;
+import javafx.collections.transformation.FilteredList;
+
 
 public class AppView {
 
@@ -55,9 +57,25 @@ public class AppView {
 
         form.add(addButton, 1, 3);
 
+        TextField searchField = new TextField();
+        searchField.setPromptText("Rechercher (nom ou email)");
+
+        FilteredList<User> filteredUsers =
+                new FilteredList<>(userService.getUsers(), u -> true);
+
+        searchField.textProperty().addListener((obs, oldVal, newVal) -> {
+            String query = newVal == null ? "" : newVal.trim().toLowerCase();
+
+            filteredUsers.setPredicate(user -> {
+                if (query.isEmpty()) return true;
+                return user.getName().toLowerCase().contains(query)
+                        || user.getEmail().toLowerCase().contains(query);
+            });
+        });
+
         // --- TableView ---
         TableView<User> table = new TableView<>();
-        table.setItems(userService.getUsers());
+        table.setItems(filteredUsers);
 
         TableColumn<User, String> nameCol = new TableColumn<>("Nom");
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -99,7 +117,7 @@ public class AppView {
             nameField.requestFocus();
         });
 
-        VBox root = new VBox(10, menuBar, title, form, table);
+        VBox root = new VBox(10, menuBar, title, form, table,searchField);
         root.setPadding(new Insets(12));
 
         Scene scene = new Scene(root, 780, 580);
