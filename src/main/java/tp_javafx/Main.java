@@ -164,6 +164,9 @@ public class Main extends Application {
         root.setPadding(new Insets(12));
 
         Scene scene = new Scene(root, 780, 580);
+        scene.getStylesheets().add(
+                getClass().getResource("/style.css").toExternalForm()
+        );
         return scene;
     }
 
