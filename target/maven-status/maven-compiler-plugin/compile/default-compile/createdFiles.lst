@@ -1,2 +1,5 @@
 tp_javafx\model\User.class
+tp_javafx\model\UserService.class
+tp_javafx\view\LoginView.class
+tp_javafx\view\AppView.class
 tp_javafx\Main.class
